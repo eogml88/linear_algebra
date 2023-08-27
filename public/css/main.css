@@ -10,8 +10,8 @@ body {
 }
 
 .Australia-images {
-    max-width: 400px;
-    max-height: 400px;
+    max-width: 1024px;
+    max-height: 768px;
     border: 8px solid #fff;
 }
 
