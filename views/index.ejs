@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>pictures of Australia</title>
+    <link href="/css/main.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="pictures of Australia">
+    <meta property="og:description" content="blah blah blah">
+    <meta property="og:image" content="/images/sunlight.jpg">
+  </head>
+  <body>
+    <h1>pictures of Australia</h1>
+    <div>
+      <% for(var i=0; i < main_display.length; i++) { %>
+        <img
+          class="Australia-images"
+          src="images/<%= main_display[i].image %>" />
+        <div 
+          class="example-containers">
+          <p 
+            class="main_display"
+          ><%- main_display[i].text %></p>
+        </div>
+      <% } %>
+    </div>
+</html>
