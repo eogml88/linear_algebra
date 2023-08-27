@@ -1,2 +1,2 @@
-# linear_algegra
+# linear_algebra
 to implement logics in linear algegebra
