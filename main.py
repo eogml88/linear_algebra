@@ -50,4 +50,4 @@ T=[1, 2, 3, 4]
 
 print(f'P: {P}')
 print(f'T: {T}')
-print(f'a Toeplitz matrix A made from T and P: \n{f.toeplitz(P,T)}')
+print(f'a Toeplitz matrix A made from T and P: \n{f.toeplitz(P, T)}')

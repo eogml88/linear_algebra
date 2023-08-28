@@ -76,7 +76,7 @@ def ele2diag(E, n=None, m=None):
     return diagonal_matrix
 
 
-def identity(n,m=None):
+def identity(n, m=None):
     '''
     input: size of a matrix (n by m)
     output: a corresponding identity matrix
@@ -86,7 +86,7 @@ def identity(n,m=None):
     return ele2diag(E,n,m)
 
 
-def zero(n,m=None):
+def zero(n, m=None):
     '''
     input: size of a matrix (n by m)
     output: a corresponding zero matrix
@@ -96,7 +96,7 @@ def zero(n,m=None):
     return ele2diag(E,n,m)
 
 
-def tri(A,dir=0):
+def tri(A, direction=0):
     '''
     input: any matrix A and the desired direction of triangle(upper: 1, lower: 0)
     output: upper or lower trianglular matrix of A
@@ -106,7 +106,7 @@ def tri(A,dir=0):
     for i in range(n):
         row = A[i][:]
         for j in range(m):
-            if dir:
+            if direction:
                 if i>j:row[j]=0
             else:
                 if i<j:row[j]=0
@@ -122,17 +122,17 @@ def tril(A):
     return tri(A,0)
 
 
-def toeplitz(A, B):
+def toeplitz(P, T):
     '''
-    input: list A and B to be combined to make a toeplitz matrix
-    output: a corresponding toeplitz matrix
+    input: list P and T to be combined to make a toeplitz matrix
+    output: a corresponding toeplitz matrix A
     '''
-    n, m = len(A), len(B)
-    toeplitz = []
+    n, m = len(P), len(T)
+    A = []
     for i in range(n):
         row = []
         for j in range(m):
-            if i>j:row+=[A[i-j]]
-            else:row+=[B[j-i]]
-        toeplitz+=[row]
-    return toeplitz
+            if i>j:row+=[P[i-j]]
+            else:row+=[T[j-i]]
+        A+=[row]
+    return A
