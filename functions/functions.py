@@ -74,3 +74,65 @@ def ele2diag(E, n=None, m=None):
             else:row += [0]
         diagonal_matrix += [row]
     return diagonal_matrix
+
+
+def identity(n,m=None):
+    '''
+    input: size of a matrix (n by m)
+    output: a corresponding identity matrix
+    '''
+    m = n if m is None else m
+    E = [1] * min(n,m)
+    return ele2diag(E,n,m)
+
+
+def zero(n,m=None):
+    '''
+    input: size of a matrix (n by m)
+    output: a corresponding zero matrix
+    '''
+    m = n if m is None else m
+    E = [0] * min(n,m)
+    return ele2diag(E,n,m)
+
+
+def tri(A,dir=0):
+    '''
+    input: any matrix A and the desired direction of triangle(upper: 1, lower: 0)
+    output: upper or lower trianglular matrix of A
+    '''
+    n, m = len(A), len(A[0])
+    triangular = []
+    for i in range(n):
+        row = A[i][:]
+        for j in range(m):
+            if dir:
+                if i>j:row[j]=0
+            else:
+                if i<j:row[j]=0
+        triangular+=[row]
+    return triangular
+
+
+def triu(A):
+    return tri(A,1)
+
+
+def tril(A):
+    return tri(A,0)
+
+
+def toeplitz(A, B):
+    '''
+    input: list A and B to be combined to make a toeplitz matrix
+    output: a corresponding toeplitz matrix
+    '''
+    n, m = len(A), len(B)
+    toeplitz = []
+    for i in range(n):
+        row = []
+        for j in range(m):
+            if i>j:row+=[A[i-j]]
+            else:row+=[B[j-i]]
+        toeplitz+=[row]
+    return toeplitz

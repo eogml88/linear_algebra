@@ -32,3 +32,22 @@ print(f.matmul(A,f.ele2diag(E)))
 
 print('matmul of D and A: ')
 print(f.matmul(f.ele2diag(E),A))
+
+print('identity matrix of size A: ')
+print(f.identity(len(A)))
+
+print('zero matrix of size A: ')
+print(f.zero(len(A)))
+
+print('upper triangular matrix of A: ')
+print(f.triu(A))
+
+print('lower triangular matrix of A: ')
+print(f.tril(A))
+
+P=[1, 0, -1, -2, -3]
+T=[1, 2, 3, 4]
+
+print(f'P: {P}')
+print(f'T: {T}')
+print(f'a Toeplitz matrix A made from T and P: \n{f.toeplitz(P,T)}')
