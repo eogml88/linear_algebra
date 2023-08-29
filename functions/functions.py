@@ -262,3 +262,63 @@ def inner_product(U, V):
     for i in range(n):
         inner += U[i]*V[i]
     return inner
+
+
+def solve_linear(A,B):
+    '''
+    input: matrix A and vector B
+    output: solution X of A * X = B
+    '''
+    X, Y, n = deepcopy(A), deepcopy(B), len(A)
+    for i in range(n):
+        print(f'==operating row {i}==')
+        t = 1 / X[i][i] if X[i][i] else 0
+        X[i], Y[i] = [e * t for e in X[i]], Y[i] * t
+        display(X[i],0,1)
+        display(Y[i])
+        for j in range(n):
+            if i==j:continue
+            print(f'\t==operating row {j}==')
+            X_temp = [e * -X[j][i] for e in X[i]]
+            Y_temp = Y[i] * -X[j][i]
+            for k in range(len(X[i])):X[j][k] += X_temp[k]
+            Y[j] += Y_temp
+            display(X,1)
+            display(Y,1)
+            print(f'\t==row {j} is done==')
+        print(f'==row {i} is done==')
+    return ' '.join([f'{y:.3f}'for y in Y])
+
+
+def deepcopy(A):
+    '''
+    input: any matrix A
+    output: copy of matrix A
+    '''
+    if type(A[0])==list:
+        n = len(A);copied = []
+        for i in range(n):copied += [A[i][:]]
+        return copied
+    else:return A[:]
+
+
+def display(A,indent=0,horizontal=0):
+    '''
+    print matrix or vector in a desired format
+    input: any matrix or vector A
+    output: none
+    '''
+    if type(A)==float or type(A)==int:
+        print('\t'*indent,f'{A:.3f}')
+    elif type(A[0])==list:
+        for a in A:
+            print('\t'*indent,end='')
+            for e in a:print(f'{e:.3f}',end=' ')
+            print()
+    else:
+        if horizontal:
+            print('\t'*indent,end='')
+            for a in A:print(f'{a:.3f}',end=' ')
+            print()
+        else:
+            for a in A:print('\t'*indent,f'{a:.3f}')

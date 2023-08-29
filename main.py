@@ -7,14 +7,15 @@ A = [
         [7, 8, 9]
     ]
 
-print(f'A: {A}')
+print('A: ')
+print(*A,sep='\n')
 print('transpose of A: ')
 print(*f.transpose(A),sep='\n',end='\n\n') # import numpy as np;print(np.transpose(A)) # import numpy as np;print(np.array(A).T)
 
 print('matmul of A and transpose of A: ')
 print(*f.matmul(A,f.transpose(A)),sep='\n',end='\n\n') # import numpy as np;print(np.matmul(A,np.array(A).T))
 
-print('diagonlized A: ')
+print('diagonalized A: ')
 print(*f.diag(A),sep='\n',end='\n\n') # import numpy as np;print(np.diag(np.diag(A)))
 
 print('diagonal elements of A: ')
@@ -52,7 +53,7 @@ T=[1, 2, 3, 4]
 
 print(f'P: {P}')
 print(f'T: {T}')
-print(f'a Toeplitz matrix A made from P and T: ') 
+print('a Toeplitz matrix A made from P and T: ') 
 print(*f.toeplitz(P, T),sep='\n',end='\n\n') # from scipy.linalg import toeplitz;print(toeplitz(P,T))
 
 print('upper bidiagonal matrix of A: ')
@@ -64,5 +65,16 @@ print(*f.bidiagl(A),sep='\n',end='\n\n') # import numpy as np;print(np.diag(np.d
 V=[1, 0, 2, 3]
 
 print(f'V: {V}')
-print(f'a householder matrix H made from vector V: ') 
+print('a householder matrix H made from vector V: ') 
 print(*f.householder(V),sep='\n',end='\n\n') # import numpy as np;print(np.identity(len(V)) - (2/np.inner(V,V))*np.outer(V,V))
+
+W=[[3, 1, 2], [2, 6, -1], [4, 0, -1]]
+B=[5, 1, 3]
+
+print('W: ')
+f.display(W)
+print('B: ')
+f.display(B)
+print('solution of W * X = B: ')
+print(f.solve_linear(W, B),sep=' ',end='\n\n') # import numpy as np;print(np.linalg.solve(W, Y))
+
