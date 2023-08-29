@@ -13,6 +13,66 @@ def transpose(A):
     return A_transposed
 
 
+def mataddscalar(A, b):
+    '''
+    input: matrix A and scalar b
+    output: result of element-wise addition of A and b
+    '''
+    n, m = len(A), len(A[0])
+    added = []
+    for i in range(n):
+        row = []
+        for j in range(m):
+            row += [A[i][j]+b]
+        added += [row]
+    return added
+
+
+def matadd(A, B):
+    '''
+    input: matrix A and B of same size n by m
+    output: result of element-wise addition of A and B
+    '''
+    n, m = len(A), len(A[0])
+    added = []
+    for i in range(n):
+        row = []
+        for j in range(m):
+            row += [A[i][j]+B[i][j]]
+        added += [row]
+    return added
+
+
+def matsub(A, B):
+    '''
+    input: matrix A and B of same size n by m
+    output: result of element-wise subtraction of A and B
+    '''
+    n, m, l = len(A), len(A[0]), len(B[0])
+    subtracted = []
+    for i in range(n):
+        row = []
+        for j in range(m):
+            row += [A[i][j]-B[i][j]]
+        subtracted += [row]
+    return subtracted
+
+
+def matmulscalar(A, b):
+    '''
+    input: matrix A and scalar b
+    output: result of element-wise addition of A and b
+    '''
+    n, m = len(A), len(A[0])
+    added = []
+    for i in range(n):
+        row = []
+        for j in range(m):
+            row += [A[i][j]*b]
+        added += [row]
+    return added
+
+
 def matmul(A, B):
     '''
     input: matrix A of size n by m and matrix B of size m by l
@@ -136,3 +196,69 @@ def toeplitz(P, T):
             else:row+=[T[j-i]]
         A+=[row]
     return A
+
+
+def bidiag(A, direction=0):
+    '''
+    input: any matrix A and the desired direction of additional diagonal(upper: 1, lower: 0)
+    output: upper or lower bidiagonal matrix of A
+    '''
+    n, m = len(A), len(A[0])
+    bidiagonal = []
+    for i in range(n):
+        row = A[i][:]
+        for j in range(m):
+            if direction:
+                if i>j or i<j-1:row[j]=0
+            else:
+                if i<j or i>j+1:row[j]=0
+        bidiagonal+=[row]
+    return bidiagonal
+
+
+def bidiagu(A):
+    return bidiag(A,1)
+
+
+def bidiagl(A):
+    return bidiag(A,0)
+
+
+def householder(V):
+    '''
+    input: vector V to make householder matrix H
+    output: householder matrix H made from vector V
+    '''
+    n = len(V)
+    outer = outer_product(V, V)
+    inner = inner_product(V, V)
+    H = matsub(identity(n), matmulscalar(outer, 2 / inner))
+    return H
+
+
+def outer_product(U, V):
+    '''
+    input: vector U and V
+    output: result of outer product of vector U and V
+    '''
+    n = len(U)
+    m = len(V)
+    outer = []
+    for i in range(n):
+        row = []
+        for j in range(m):
+            row += [U[i]*V[j]]
+        outer += [row]
+    return outer
+
+
+def inner_product(U, V):
+    '''
+    input: vector U and V
+    output: result of inner product of vector U and V
+    '''
+    n = len(U)
+    inner = 0
+    for i in range(n):
+        inner += U[i]*V[i]
+    return inner
