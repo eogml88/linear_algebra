@@ -48,7 +48,7 @@ def matsub(A, B):
     input: matrix A and B of same size n by m
     output: result of element-wise subtraction of A and B
     '''
-    n, m, l = len(A), len(A[0]), len(B[0])
+    n, m = len(A), len(A[0])
     subtracted = []
     for i in range(n):
         row = []
@@ -271,22 +271,22 @@ def solve_linear(A,B):
     '''
     X, Y, n = deepcopy(A), deepcopy(B), len(A)
     for i in range(n):
-        print(f'==operating row {i}==')
+        print(f'== operating row {i} ==')
         t = 1 / X[i][i] if X[i][i] else 0
         X[i], Y[i] = [e * t for e in X[i]], Y[i] * t
         display(X[i],0,1)
         display(Y[i])
         for j in range(n):
             if i==j:continue
-            print(f'\t==operating row {j}==')
+            print(f'\t== operating row {j} ==')
             X_temp = [e * -X[j][i] for e in X[i]]
             Y_temp = Y[i] * -X[j][i]
             for k in range(len(X[i])):X[j][k] += X_temp[k]
             Y[j] += Y_temp
             display(X,1)
             display(Y,1)
-            print(f'\t==row {j} is done==')
-        print(f'==row {i} is done==')
+            print(f'\t== row {j} is done ==')
+        print(f'== row {i} is done ==')
     return ' '.join([f'{y:.3f}'for y in Y])
 
 
@@ -322,3 +322,40 @@ def display(A,indent=0,horizontal=0):
             print()
         else:
             for a in A:print('\t'*indent,f'{a:.3f}')
+
+
+def det_rec(A):
+    '''
+    input: a square matrix
+    output: determinant of the matrix
+    '''
+    n = len(A)
+    det = 0
+    if n == 2:
+        return A[0][0] * A[1][1] - A[0][1] * A[1][0]
+    else:
+        for i in range(n):
+            sign = (-1) ** i
+            sub_det = det_rec([A[k][:i]+A[k][i+1:] for k in range(1,n)])
+            det += sign * A[0][i] * sub_det
+        return det
+
+
+def det_tri(A):
+    '''
+    input: a squre matrix
+    output: determinant of the matrix
+    '''
+    n = len(A)
+    X = deepcopy(A)
+    n_row_change = 0
+    for i in range(n):
+        if X[i][i] == 0:
+            X[i], X[i+1] = X[i+1], X[i]
+            n_row_change += 1
+        for j in range(i+1,n):
+            ratio = X[j][i] / X[i][i]            
+            for k in range(n):X[j][k] -= ratio * X[i][k] # X[j] = matsub([X[j]], matmulscalar([X[i]], ratio))[0]
+    det=1
+    for i in range(n):det *= X[i][i]
+    return (-1) ** n_row_change * det
