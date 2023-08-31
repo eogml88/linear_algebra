@@ -104,3 +104,15 @@ print('det(X): ',end='')
 print(f.det_rec(X)) # import numpy as np;print(np.linalg.det(X))
 print('det(X): ',end='')
 print(f.det_tri(X),end='\n\n') # import numpy as np;print(np.linalg.det(X))
+
+X = [
+        [ 3, 2, 0],
+        [-1,-3, 6],
+        [ 2, 3,-5]
+    ]
+
+print('X: ')
+f.display(X)
+print('inv(X): ')
+f.display(f.inv(X)) # import numpy as np;print(np.linalg.inv(X))
+print()

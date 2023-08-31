@@ -16,7 +16,7 @@ def transpose(A):
 def mataddscalar(A, b):
     '''
     input: matrix A and scalar b
-    output: result of element-wise addition of A and b
+    output: result of element-wise addition of b on A
     '''
     n, m = len(A), len(A[0])
     added = []
@@ -61,7 +61,7 @@ def matsub(A, B):
 def matmulscalar(A, b):
     '''
     input: matrix A and scalar b
-    output: result of element-wise addition of A and b
+    output: result of element-wise multiplication of b on A
     '''
     n, m = len(A), len(A[0])
     added = []
@@ -359,3 +359,21 @@ def det_tri(A):
     det=1
     for i in range(n):det *= X[i][i]
     return (-1) ** n_row_change * det
+
+
+def inv(A):
+    '''
+    input: a invertible matrix A
+    output: inverted matrix of A
+    '''
+    n = len(A)
+    cofactors = []
+    for i in range(n):
+        row = []
+        for j in range(n):
+            minor = det_rec([[A[k][l] for l in range(n) if l!=j] for k in range(n) if k!=i])
+            cofactor = (-1)**(i+j) * minor
+            row += [cofactor]
+        cofactors += [row]
+    adjugate = transpose(cofactors)
+    return matmulscalar(adjugate, 1/det_rec(A))
